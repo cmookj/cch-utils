@@ -1,4 +1,4 @@
-# Toolbox
+# cch-utils
 
 Set of C++ utility libraries (Work in progress).
 
