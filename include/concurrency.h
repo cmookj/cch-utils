@@ -5,8 +5,8 @@
 //  Changmook Chun (c) 2024.  All rights reserved.
 //
 
-#ifndef gpw_concurrency_hpp
-#define gpw_concurrency_hpp
+#ifndef cch_concurrency_hpp
+#define cch_concurrency_hpp
 
 #include <condition_variable>
 #include <functional>
@@ -15,7 +15,7 @@
 #include <thread>
 #include <vector>
 
-namespace gpw::concurrency {
+namespace cch::concurrency {
 
 // Example usage
 // =============
@@ -27,7 +27,7 @@ namespace gpw::concurrency {
 // 3. Wait while the thread pool is busy
 // 4. Finally, call stop() to finish remaining threads
 //
-// using namespace gpw::concurrency;
+// using namespace cch::concurrency;
 //
 // int
 // main (int argc, char* argv[]) {
@@ -57,8 +57,8 @@ namespace gpw::concurrency {
 
 class thread_pool {
 public:
-  thread_pool()  = default;
-  ~thread_pool() = default;
+  thread_pool ()  = default;
+  ~thread_pool () = default;
 
   void
   start () {
@@ -133,9 +133,7 @@ private:
       std::function<void()> job;
       {
         std::unique_lock<std::mutex> lock (_queue_mutex);
-        _mutex_condition.wait (lock, [this] {
-          return !_jobs.empty() || _should_terminate;
-        });
+        _mutex_condition.wait (lock, [this] { return !_jobs.empty() || _should_terminate; });
         if (_should_terminate) {
           return;
         }
@@ -169,6 +167,6 @@ private:
   std::queue<std::function<void()>> _jobs;
 };
 
-}  // namespace gpw::concurrency
+}  // namespace cch::concurrency
 
 #endif

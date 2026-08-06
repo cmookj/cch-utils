@@ -6,7 +6,7 @@
 #include <string>
 #include <utility>
 
-namespace gpw::util::dt {
+namespace cch::util::dt {
 
 // Measure time of execution of a function
 using time_point = std::chrono::high_resolution_clock::time_point;
@@ -20,9 +20,9 @@ duration_msec (const time_point& since);
 template <typename F, typename... Args>
 double
 measure_time_msec (F func, Args&&... args) {
-    time_point t1 = now();
-    func (std::forward<Args> (args)...);
-    return duration_msec (t1);
+  time_point t1 = now();
+  func (std::forward<Args> (args)...);
+  return duration_msec (t1);
 }
 
 // Get string of time
@@ -58,4 +58,4 @@ time_stamp_utc (bool show_msec = false);
 std::string
 time_stamp (long long msec, bool show_msec, bool utc);
 
-}  // namespace gpw::util::dt
+}  // namespace cch::util::dt

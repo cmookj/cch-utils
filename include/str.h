@@ -6,7 +6,7 @@
 #include <string_view>
 #include <vector>
 
-namespace gpw::str {
+namespace cch::str {
 
 std::string_view
 ltrim (std::string_view str);
@@ -37,13 +37,13 @@ compare (std::string str1, std::string str2);
 template <typename... Args>
 std::string
 format_string (const std::string& format, Args... args) {
-    size_t size = std::snprintf (nullptr, 0, format.c_str(), args...) + 1;  // Extra space for '\0'
-    if (size <= 0) {
-        throw std::runtime_error ("Invalid string format");
-    }
-    std::unique_ptr<char[]> buf (new char[size]);
-    std::snprintf (buf.get(), size, format.c_str(), args...);
-    return std::string (buf.get(), buf.get() + size - 1);  // We don't want the '\0' inside
+  size_t size = std::snprintf (nullptr, 0, format.c_str(), args...) + 1;  // Extra space for '\0'
+  if (size <= 0) {
+    throw std::runtime_error ("Invalid string format");
+  }
+  std::unique_ptr<char[]> buf (new char[size]);
+  std::snprintf (buf.get(), size, format.c_str(), args...);
+  return std::string (buf.get(), buf.get() + size - 1);  // We don't want the '\0' inside
 }
 
 std::string
@@ -52,35 +52,34 @@ format (const char*);
 template <typename T, typename... Args>
 std::string
 format (const char* s, T value, Args... args) {
-    std::stringstream ss;
+  std::stringstream ss;
 
-    while (s && *s) {
-        switch (*s) {
-        case '{':
-            if (*(s + 1) == '}') {
-                s += 2;
-                ss << value;
-                return ss.str() + format (s, args...);
-            } else if (*(s + 1) == '{') {
-                ss << '{';
-                s += 2;
-            } else
-                throw std::runtime_error{"invalid format: { should be followed by another { or }"};
+  while (s && *s) {
+    switch (*s) {
+    case '{':
+      if (*(s + 1) == '}') {
+        s += 2;
+        ss << value;
+        return ss.str() + format (s, args...);
+      } else if (*(s + 1) == '{') {
+        ss << '{';
+        s += 2;
+      } else throw std::runtime_error{"invalid format: { should be followed by another { or }"};
 
-            break;
+      break;
 
-        case '}':
-            if (*(s + 1) == '}') {
-                ss << '}';
-                s += 2;
-            } else throw std::runtime_error{"invalid format: } should be followed by another }"};
+    case '}':
+      if (*(s + 1) == '}') {
+        ss << '}';
+        s += 2;
+      } else throw std::runtime_error{"invalid format: } should be followed by another }"};
 
-            break;
+      break;
 
-        default: ss << *s++;
-        }
+    default: ss << *s++;
     }
-    throw std::runtime_error{"extra arguments provided to format"};
+  }
+  throw std::runtime_error{"extra arguments provided to format"};
 }
 
 // KMP (Knuth-Morris-Pratt) search algorithm
@@ -90,4 +89,4 @@ llps (std::string& pat);
 std::vector<int>
 search (std::string& pat, std::string& txt);
 
-}  // namespace gpw::str
+}  // namespace cch::str

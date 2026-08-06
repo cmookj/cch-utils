@@ -92,7 +92,7 @@ namespace fs = std::filesystem;
 #endif
 */
 
-namespace gpw::filesystem {
+namespace cch::filesystem {
 
 std::string
 append_suffix (const std::string& file_name, const std::string& suffix);
@@ -105,45 +105,49 @@ prepend_dir (const std::string& dir, const std::string& file_name);
  @param filepath The path to the file
  @param length The length of the file in bytes
  */
-bool file_exists (const fs::path& filepath, const std::size_t length = 0);
+bool
+file_exists (const fs::path& filepath, const std::size_t length = 0);
 
 /**
  @brief Checks whether the file exists or not in the current directory
  @param filename The name of the file
  @param length The length of the file in bytes
  */
-bool file_exists (
-    const std::string_view& filename, const std::size_t length = 0
-);
+bool
+file_exists (const std::string_view& filename, const std::size_t length = 0);
 
-std::string check_duplicate (
-    const std::string_view& filename, const std::string_view& extension
-);
+std::string
+check_duplicate (const std::string_view& filename, const std::string_view& extension);
 
 /**
  * @brief Checks whether there exists the directory given in a directory
  */
-bool directory_exists (const std::string_view&, const fs::path&);
+bool
+directory_exists (const std::string_view&, const fs::path&);
 
 /**
  * @brief Moves the filesystem item given to the path specified
  */
-void move_item_to (const fs::path&, const fs::path&);
+void
+move_item_to (const fs::path&, const fs::path&);
 
 /**
  * @brief Copies the filesystem item given to the path specified
  */
-void copy_item_to (const fs::path&, const fs::path&);
+void
+copy_item_to (const fs::path&, const fs::path&);
 
 /**
  * @brief Moves all the contents of a directory to the path specified
  */
-void move_directory_contents_to (const fs::path&, const fs::path&);
+void
+move_directory_contents_to (const fs::path&, const fs::path&);
 
 /**
  * @brief Copies all the contents of a directory to the path specified
  */
-void copy_directory_contents_to (const fs::path&, const fs::path&);
+void
+copy_directory_contents_to (const fs::path&, const fs::path&);
 
 /**
  * @brief Deletes all the contents of a directory
@@ -151,7 +155,8 @@ void copy_directory_contents_to (const fs::path&, const fs::path&);
  * @param delete_directory If it is true, this function deletes the directory
  * too. Otherwise, it leaves the directory
  */
-void remove_all_contents (const fs::path&, const bool delete_directory = false);
+void
+remove_all_contents (const fs::path&, const bool delete_directory = false);
 
 /**
  * @brief Creates a new directory in the destination directory.
@@ -159,9 +164,8 @@ void remove_all_contents (const fs::path&, const bool delete_directory = false);
  * @param name The name of the directory to create.
  * @param dst The path to the destination directory.
  */
-void create_new_directory_in (
-    const std::string_view& name, const fs::path& dst
-);
+void
+create_new_directory_in (const std::string_view& name, const fs::path& dst);
 
 /**
  * @brief Creates a directory if possible.
@@ -171,7 +175,8 @@ void create_new_directory_in (
  * @param dir The path to the directory to create.
  * @return true if the directory was created, false otherwise.
  */
-bool create_directory (const fs::path& dir);
+bool
+create_directory (const fs::path& dir);
 
 /**
  * @brief Determines if an item is movable to a destination.
@@ -181,10 +186,12 @@ bool create_directory (const fs::path& dir);
  * @return true The item is movable.
  * @return false The item is not movable.
  */
-bool item_movable (const fs::path& item, const fs::path& dst);
+bool
+item_movable (const fs::path& item, const fs::path& dst);
 
 // Read a text file into a string object
-std::string to_string (const fs::path&);
+std::string
+to_string (const fs::path&);
 
 // Find file
 //
@@ -201,10 +208,11 @@ std::string to_string (const fs::path&);
 // 4. If it fails to find until it reaches to the root path of current
 // filesystem,
 //    if throws an exception (runtime_error).
-fs::path find_file (
+fs::path
+find_file (
     const std::string_view& dir,
     const std::string_view& file,
-    fs::path current = fs::current_path()
+    fs::path                current = fs::current_path()
 );
 
 // Find directory
@@ -219,12 +227,12 @@ fs::path find_file (
 // 4. If it fails to find until it reaches to the root path of current
 // filesystem,
 //    if throws an exception (runtime_error).
-fs::path find_directory (
-    const std::string_view& dir, fs::path current = fs::current_path()
-);
+fs::path
+find_directory (const std::string_view& dir, fs::path current = fs::current_path());
 
-std::string make_unique_filename (
-    const fs::path& dir,
+std::string
+make_unique_filename (
+    const fs::path&         dir,
     const std::string_view& filename,
     const std::string_view& ext
 );
@@ -234,14 +242,16 @@ std::string make_unique_filename (
  * @param target A path to a normal file
  * @param link A symbolic link to create
  */
-bool create_symlink (const fs::path target, const fs::path link);
+bool
+create_symlink (const fs::path target, const fs::path link);
 
 /**
  * @breif Creates a symbolic link to a directory
  * @param target A path to a normal directory
  * @param link A symbolic link to create
  */
-bool create_directory_symlink (const fs::path target, const fs::path link);
+bool
+create_directory_symlink (const fs::path target, const fs::path link);
 
 /**
  * @brief Follows a symbolic link.
@@ -249,6 +259,7 @@ bool create_directory_symlink (const fs::path target, const fs::path link);
  * input.
  * @param link A path to follow
  */
-fs::path follow_target_path (const fs::path& link);
+fs::path
+follow_target_path (const fs::path& link);
 
-} // namespace gpw::filesystem
+}  // namespace cch::filesystem
