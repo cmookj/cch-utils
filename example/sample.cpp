@@ -1,16 +1,16 @@
-#include "../toolbox/include/log.hpp"
+#include "../include/log.h"
 
 #include <string>
 
 int
 main (int argc, char* argv[]) {
-  // gpw::utils::logger_t logger;
+  // cch::utils::logger_t logger;
 
   // logger.enable_console_output (true);
 
-  gpw::info ("Hi, there!");
-  gpw::warn ("Be careful...");
-  gpw::error ("You are in a big trouble");
+  cch::info ("Hi, there!");
+  cch::warn ("Be careful...");
+  cch::error ("You are in a big trouble");
 
   return 0;
 }
